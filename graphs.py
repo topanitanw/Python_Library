@@ -20,7 +20,7 @@ def plot_bar(xdata, ydata, title):
     graph_title = title + " bar char"
     fig_title = title + "_" + "bar.jpg"
 
-    plt.figure(111)
+    plt.figure(111, figsize=(8, 6), dpi=80)
 
     plt.bar(xlocation, ydata, width=0.5)
 
@@ -57,7 +57,7 @@ def plot_hist(data, title):
     graph_title = title + " bar char"
     fig_title = title + "_" + "bar.jpg"
 
-    plt.figure(111)
+    plt.figure(111, figsize=(8, 6), dpi=80)
     data_array = np.array(data)
     dweigths = np.ones_like(data_array)/float(len(data))
 
@@ -85,7 +85,7 @@ def plot_cdf(data, title):
     graph_title = title + " cdf char"
     fig_title = title + "_" + "cdf.jpg"
 
-    plt.figure(111)
+    plt.figure(111, figsize=(8, 6), dpi=80)
 
     data_np = np.array(data)
     dweigths = np.ones_like(data_np)/float(len(data))
@@ -107,3 +107,57 @@ def plot_cdf(data, title):
     plt.tight_layout()
     plt.show()
     # plt.savefig(fig_title)
+
+def plot_vector(vector_lst):
+    ''' 
+    Plot vectors on the 2D coordinates.
+    
+    Ex.
+    plot_vector([Vector(0, 0, 3, 0, 'r', "r"),
+                 Vector(3, 0, 0, 4, 'g', "g"),
+                 Vector(0, 0, 3, 4, 'b', "b")])
+    '''
+
+    plt.figure(111, figsize=(8, 6), dpi=80)
+
+    xpoints = []
+    ypoints = []
+    for v in vector_lst:
+        xpoints.append(v.get_xstart())
+        xpoints.append(v.get_dx() + v.get_xstart())
+
+    xmin = min(xpoints)
+    xmax = max(xpoints)
+
+    for v in vector_lst:
+        ypoints.append(v.get_ystart())
+        ypoints.append(v.get_dy() + v.get_ystart())
+
+    ymin = min(ypoints)
+    ymax = max(ypoints)
+
+    plt.xlim(xmin -1, xmax + 1)
+    plt.ylim(ymin -1, ymax + 1)
+
+    legends = []
+    labels = []
+    for v in vector_lst:
+        artist = plt.arrow(v.get_xstart(), v.get_ystart(), v.get_dx(), v.get_dy(),
+                           color=v.get_color(), width=0.01,
+                           length_includes_head=True,
+                           head_width=0.1, head_length=0.1)
+        legends.append(artist)
+        labels.append(v.get_name())
+
+    plt.legend(legends, labels, loc='best', mode='expand', ncol=len(vector_lst))
+
+    plt.box(False)
+
+    frame = plt.gca()
+    # frame.axes.get_xaxis().set_visible(False)
+    # frame.axes.get_yaxis().set_visible(False)
+
+    # frame.axes.get_xaxis().set_ticks([])
+    # frame.axes.get_yaxis().set_ticks([])
+    plt.grid(True)
+    plt.show()
