@@ -1,12 +1,12 @@
 '''
-Plot graphs 
+Plot graphs
 - bar chart
 
 Panitan W
 '''
 
 # fix the "cannot display error" error of the matplotlib in ubuntu
-import matplotlib 
+import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import collections as col
@@ -14,7 +14,7 @@ import collections as col
 import np
 
 def plot_bar(xdata, ydata, title):
-    ''' 
+    '''
     Plot a bar chart.
     '''
     graph_title = title + " bar char"
@@ -50,7 +50,7 @@ def plot_bar(xdata, ydata, title):
 
 def plot_hist(data, title):
     '''
-    Plot a histogram graph 
+    Plot a histogram graph
     - set the bin to 1 for each unique data
     - set the weights for each elements in the list equally
     '''
@@ -89,29 +89,29 @@ def plot_cdf(data, title):
 
     data_np = np.array(data)
     dweigths = np.ones_like(data_np)/float(len(data))
-    
+
     plt.hist(data, weights=dweigths, bins=len(set(data)), cumulative=True)
-    
+
     dmax = max(data)
     dmin = min(data)
 
     plt.title(graph_title)
     plt.xlabel("Frequency")
-    
+
     # plt.yscale('log')
     plt.ylabel("% log(Reference)")
-    
+
     plt.grid(b=True, which='major', color='b', linestyle='-')
     plt.grid(b=True, which='minor', color='g', linestyle='--')
-    
+
     plt.tight_layout()
     plt.show()
     # plt.savefig(fig_title)
 
 def plot_vector(vector_lst):
-    ''' 
+    '''
     Plot vectors on the 2D coordinates.
-    
+
     Ex.
     plot_vector([Vector(0, 0, 3, 0, 'r', "r"),
                  Vector(3, 0, 0, 4, 'g', "g"),
